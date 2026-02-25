@@ -153,7 +153,7 @@ This design **eliminates Python 2 / Python 3 / R dependency conflicts** without 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/<your-username>/nf-tumor-clonality.git
+git clone https://github.com/divinewilson/nf-tumor-clonality.git
 cd nf-tumor-clonality
 ```
 
