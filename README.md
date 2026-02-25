@@ -6,11 +6,10 @@
 ![Docker](https://img.shields.io/badge/Docker-Multi--Conda--Env-2496ED?style=for-the-badge&logo=docker)
 ![Python](https://img.shields.io/badge/Python-Data%20Engineering-3776AB?style=for-the-badge&logo=python)
 ![R](https://img.shields.io/badge/R-ClonEvol%20Reporting-276DC3?style=for-the-badge&logo=r)
-#![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)
 
 **A scalable Nextflow DSL2 pipeline for tumor subclonality analysis.**  
-Automated data engineering via Python · Multi-Conda-environment Dockerization · Reproducible phylogenetic reporting.
+Automated data engineering via Python · Multi-Conda-environment Dockerization · phylogenetic reporting.
 
 </div>
 
@@ -257,7 +256,3 @@ This project was built to demonstrate applied bioinformatics engineering skills 
 This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
 
 ---
-
-<div align="center">
-Built to demonstrate production-grade bioinformatics engineering · <a href="https://github.com/<your-username>">@your-username</a>
-</div>
