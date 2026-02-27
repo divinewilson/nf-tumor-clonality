@@ -155,9 +155,9 @@ The script accepts `haplotype` (GATK HaplotypeCaller), `mutect2` (GATK Mutect2),
 ```bash
 python python_reformat_VCF_file.py \
   --caller     haplotype \
-  --vcf_file   INFILES/HAPLO/sample1_1_haplo.vcf \
-  --sample_id  sample1_1 \
-  --outdir     OUTDIR \
+  --vcf_file   path/haplo.vcf \
+  --sample_id  sample1 \
+  --outdir     path/outdir \
   --threads    4
 ```
 
