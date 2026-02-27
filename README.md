@@ -142,6 +142,62 @@ This design **eliminates Python 2 / Python 3 / R dependency conflicts** without 
 
 ---
 
+## 🧹 Step 0: VCF Preprocessing (Required)
+
+The Nextflow pipeline expects VCFs to be **pre-reformatted** into a standardised format before being consumed as input. A dedicated preprocessing script — `python_reformat_VCF_file.py` — handles this step and supports three major somatic variant callers.
+
+### Supported Callers
+
+The script accepts `haplotype` (GATK HaplotypeCaller), `mutect2` (GATK Mutect2), and `strelka2` as `--caller` values. HaplotypeCaller and Mutect2 both use `AD`-based allele depth fields, with Mutect2 preferring its native `AF` FORMAT tag where present. Strelka2 uses per-base tier1 counts (`AU`, `CU`, `GU`, `TU`) and is limited to SNVs — indels are skipped.
+
+### Usage
+
+```bash
+python python_reformat_VCF_file.py \
+  --caller     haplotype \
+  --vcf_file   INFILES/HAPLO/sample1_1_haplo.vcf \
+  --sample_id  sample1_1 \
+  --outdir     OUTDIR \
+  --threads    4
+```
+
+| Argument | Description | Required |
+|---|---|---|
+| `--caller` | Variant caller: `haplotype`, `mutect2`, or `strelka2` | ✅ |
+| `--vcf_file` | Input VCF file (`.vcf` or `.vcf.gz`) | ✅ |
+| `--sample_id` | Sample ID used to name the output file | ✅ |
+| `--outdir` | Directory to write the reformatted VCF | ✅ |
+| `--threads` | Number of parallel CPU threads for chunk processing | Default: `4` |
+
+### Output Format
+
+The reformatted VCF retains the standard 8-column structure with a normalised `INFO` field:
+
+```
+#CHROM  POS       ID   REF  ALT  QUAL  FILTER  INFO
+1       12345678  .    C    T    .     PASS    VAF=0.3421;t_alt_count=45;t_ref_count=87
+```
+
+### Multi-Sample Preprocessing
+
+For multi-region or multi-timepoint samples, run the script once per VCF and collect all reformatted files into the `VCF_DATA/` directory before launching the pipeline:
+
+```bash
+for vcf in INFILES/HAPLO/sample1_*.vcf; do
+    sample=$(basename "$vcf" _haplo.vcf)
+    python python_reformat_VCF_file.py \
+      --caller haplotype \
+      --vcf_file "$vcf" \
+      --sample_id "$sample" \
+      --outdir OUTDIR/VCF_DATA \
+      --threads 4
+done
+```
+
+The pipeline's `vcf_files` glob pattern (`${sample_id}*_reformated.vcf`) will automatically collect all matching reformatted files for a given sample.
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
