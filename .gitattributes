@@ -1,0 +1,6 @@
+# Mark all HTML files as generated or documentation so they don't count towards stats
+*.html linguist-generated=true
+*.html linguist-documentation=true
+
+# Specifically ignore your results folder if that's where the HTML lives
+results/** linguist-vendored
