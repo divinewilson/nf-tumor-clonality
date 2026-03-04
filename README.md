@@ -230,7 +230,7 @@ Three plots are generated at the end of the pipeline
 
 <div align="center">
 
-[![Alt text](test_data/test_outfiles/sample1/sample1_clonality_tree.pdf)](test_data/test_outfiles/sample1/sample1_clonality_tree.pdf)
+[![Alt text](images/sample1_clonality_tree.png)](images/sample1_clonality_tree.png)
 
 </div>
 
