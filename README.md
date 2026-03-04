@@ -243,7 +243,7 @@ Three plots are generated at the end of the pipeline
 
 <div align="center">
 
-[![Alt text](test_data/test_outfiles/sample1/sample1__pops_VAFs_interactive.html)](test_data/test_outfiles/sample1/sample1__pops_VAFs_interactive.html)
+[![Alt text](images/sample1__pops_VAFs_interactive.gif)](images/sample1__pops_VAFs_interactive.gif)
 
 </div>
 
@@ -261,7 +261,7 @@ Biologically, this plot supports rapid identification of whether specific driver
 
 <div align="center">
 
-[![Alt text](test_data/test_outfiles/sample1/sample1__pops_bubbleplot_interactive.html)](test_data/test_outfiles/sample1/sample1__pops_bubbleplot_interactive.html)
+[![Alt text](images/sample1__pops_bubbleplot_interactive.gif)](images/sample1__pops_bubbleplot_interactive.gif)
 
 </div>
 
