@@ -197,7 +197,7 @@ def run_genomic_intersection(mutass_df, ssm_df, cnvs_df, df_anno, df_gene_of_int
     final_df['ssms'] = final_df["ssms_cnvs"].apply(lambda x: x if str(x).startswith("s") else "")
     final_df['cnvs'] = final_df["ssms_cnvs"].apply(lambda x: x if str(x).startswith("c") else "")
     
-    final_df = final_df[['chrom', 'start', 'end', 'population', 'ssms', 'cnvs', 'gene_coordinate', 'GENE_NAME', 'vaf']]
+    final_df = final_df[['chrom', 'start', 'end', 'population', 'ssms', 'cnvs', 'gene_coordinate', 'GENE_NAME', 'vaf', 't_alt_count', 't_ref_count']]
     final_df = final_df.sort_values(by=['population', 'chrom', 'start']).reset_index(drop=True)
     final_df = pd.merge(final_df, cp_df, on='population', how='inner') # Merge CP info to final df
     final_df.to_csv(out_path, sep='\t', index=False)
@@ -229,7 +229,7 @@ def main(sample_id, annotation_file, treesum_file, mutass_dir, ssm_file, cnvs_fi
     df_anno = pd.read_csv(annotation_file, sep='\t')
     df_anno['gene_coordinate'] = 'chr' + df_anno['chrom'].astype(str) + '_' + \
                                  df_anno['start'].astype(str) + '_' + df_anno['end'].astype(str)
-    df_anno = df_anno.rename(columns={'GENE_NAME':'gene_names'})[['gene_coordinate', 'gene_names', 'vaf']]
+    df_anno = df_anno.rename(columns={'GENE_NAME':'gene_names'})[['gene_coordinate', 'gene_names', 'vaf', 't_alt_count', 't_ref_count']]
     
     # df_goi = pd.DataFrame(GENES_OF_INTEREST, columns=['GENE_NAME'])
     df_goi = pd.read_csv(goi_file, sep='\t', names=['GENE_NAME'], header=None)

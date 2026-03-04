@@ -3,7 +3,7 @@
 library(clonevol)
 library(ggplot2)
 
-ClonEvol_function <- function(tree_file, variant_file, outpdf) {
+ClonEvol_function <- function(tree_file, variant_file, outpdf, plot_w, plot_h) {
 
   
   ## Load and prepare CloneEvol tree
@@ -63,31 +63,29 @@ ClonEvol_function <- function(tree_file, variant_file, outpdf) {
     as.character(germ_data$node.labels)
   ]
 
-  
-  ## Format gene labels (horizontal stacking)
-  germ_data$branch.texts <- sapply(
-  strsplit(as.character(germ_data$branch.texts), ","),
-  function(genes) {
-
-    genes <- trimws(genes)           # remove extra spaces
-    if (length(genes) == 0) return("")
-
-    # Split into groups of 5
-    gene_groups <- split(
-      genes,
-      ceiling(seq_along(genes) / 5)
-    )
-
-    # Join genes within each group by ", "
-    lines <- sapply(gene_groups, function(g) {
-      paste(g, collapse = ", ")
-    })
-
-    # Join groups by newline
-    paste(lines, collapse = "\n")
+  ## Format gene labels (Split into Left and Right columns)
+  split_genes <- function(gene_string, side = "left") {
+    genes <- trimws(strsplit(as.character(gene_string), ",")[[1]])
+    if (length(genes) == 0 || gene_string == "") return("")
+    
+    n <- length(genes)
+    mid <- ceiling(n / 2)
+    
+    if (side == "left") {
+      selected <- genes[1:mid]
+    } else {
+      # If only 1 gene, put it on left, return empty for right
+      if (n == 1) return("") 
+      selected <- genes[(mid + 1):n]
+    }
+    
+    # Stack them vertically (1 gene per line)
+    # For very long lists, you can do 2 per line by changing this:
+    paste(selected, collapse = "\n")
   }
-  )
-
+  germ_data$text_left  <- sapply(germ_data$branch.texts, split_genes, side = "left")
+  germ_data$text_right <- sapply(germ_data$branch.texts, split_genes, side = "right")
+  
   ## Adjust branch length scale
   germ_data$length <- germ_data$length / 3
 
@@ -136,16 +134,32 @@ ClonEvol_function <- function(tree_file, variant_file, outpdf) {
       hjust = 0.5
     ) +
 
-    ## Gene labels on branches
+    ## Gene labels: LEFT SIDE
     geom_text(
       aes(
         x = (x0 + x1) / 2,
         y = (y0 + y1) / 2,
-        label = branch.texts
+        label = text_left
       ),
       size  = 2,
-      hjust = 0.5,
-      vjust = 0.5
+      hjust = 1.1,      # Right-align the text against the branch
+      vjust = 0.5,
+      nudge_x = -0.3,   # Push slightly to the left
+      lineheight = 0.8  # Tighten vertical space between genes
+    ) +
+
+    ## Gene labels: RIGHT SIDE
+    geom_text(
+      aes(
+        x = (x0 + x1) / 2,
+        y = (y0 + y1) / 2,
+        label = text_right
+      ),
+      size  = 2,
+      hjust = -0.1,     # Left-align the text against the branch
+      vjust = 0.5,
+      nudge_x = 0.3,    # Push slightly to the right
+      lineheight = 0.8
     ) +
 
     labs(title = sample_info) +
@@ -156,7 +170,7 @@ ClonEvol_function <- function(tree_file, variant_file, outpdf) {
       x = range(germ_data$x0, germ_data$x1) + c(-2, 2),
       y = range(germ_data$y0, germ_data$y1) + c(-2, 2)
     )
-  ggsave(outpdf, plot = p, width = 5, height = 10, dpi = 300)
+  ggsave(outpdf, plot = p, width = plot_w, height = plot_h, dpi = 400)
     
     
   ### plot tree without labels
@@ -198,7 +212,7 @@ ClonEvol_function <- function(tree_file, variant_file, outpdf) {
     y = range(germ_data$y0, germ_data$y1) + c(-2, 2)
   )
 
-  ggsave(outpdf_clean, plot = q, width = 2.5, height = 5.5, dpi = 300)
+  ggsave(outpdf_clean, plot = q, width = 2.5, height = 5.5, dpi = 400)
 
 }
 
@@ -207,5 +221,7 @@ ClonEvol_function <- function(tree_file, variant_file, outpdf) {
 tree_file    <- as.character(commandArgs(trailingOnly = TRUE)[1])
 variant_file <- as.character(commandArgs(trailingOnly = TRUE)[2])
 outpdf       <- as.character(commandArgs(trailingOnly = TRUE)[3])
+plot_w       <- as.numeric(commandArgs(trailingOnly = TRUE)[4])
+plot_h       <- as.numeric(commandArgs(trailingOnly = TRUE)[5])
 
-ClonEvol_function(tree_file, variant_file, outpdf)
+ClonEvol_function(tree_file, variant_file, outpdf, plot_w, plot_h)

@@ -31,7 +31,7 @@ process CLONEVOL {
     
     script:
     """
-    Rscript_clonevol.R "${tree}" "${variant}" "${sample_id}"_clonality_tree.pdf
+    Rscript_clonevol.R "${tree}" "${variant}" "${sample_id}"_clonality_tree.pdf "${params.tree_width}" "${params.tree_height}"
     """
     
 }

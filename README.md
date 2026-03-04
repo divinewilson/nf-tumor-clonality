@@ -66,7 +66,7 @@ nf-tumor-clonality/
 
 ---
 
-## 🔬 Pipeline Workflow
+## Pipeline Workflow
 
 The pipeline is composed of **9 sequential processes** organised across 5 modules:
 
