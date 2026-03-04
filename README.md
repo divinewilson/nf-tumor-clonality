@@ -232,7 +232,7 @@ Three plots are generated at the end of the pipeline
 
 <p align="center">
   <a href="images/sample1_clonality_tree.png">
-    <img src="images/sample1_clonality_tree.png" alt="Clonality Tree" width="300" height="400">
+    <img src="images/sample1_clonality_tree.png" alt="Clonality Tree" width="300" height="500">
   </a>
 </p>
 
