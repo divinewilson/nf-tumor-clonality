@@ -6,6 +6,7 @@
 ![Docker](https://img.shields.io/badge/Docker-Multi--Conda--Env-2496ED?style=for-the-badge&logo=docker)
 ![Python](https://img.shields.io/badge/Python-Data%20Engineering-3776AB?style=for-the-badge&logo=python)
 ![R](https://img.shields.io/badge/R-Visualization-276DC3?style=for-the-badge&logo=r)
+![Plotly](https://img.shields.io/badge/Plotly-Interactive%20Plots-3F4F75?style=for-the-badge&logo=plotly)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)
 
 **A scalable Nextflow DSL2 pipeline for tumor subclonality analysis.**  
@@ -184,7 +185,7 @@ The pipeline resolves `cnv_files`, `vcf_files`, and `goi_file` automatically fro
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 All parameters are defined in `nextflow.config` and can be overridden at runtime via `--param value`:
 
@@ -228,17 +229,6 @@ Three plots are generated at the end of the pipeline
 
 ---
 
-<div align="center">
-
-<p align="center">
-  <a href="images/sample1_clonality_tree.png">
-    <img src="images/sample1_clonality_tree.png" alt="Clonality Tree" width="300" height="500">
-  </a>
-</p>
-
-</div>
-
-
 ### Genome-Wide VAF Scatter Plot
 
 <div align="center">
@@ -273,8 +263,27 @@ This plot is designed to distinguish clonal drivers from subclonal passengers. L
 
 ---
 
+### Clonal Phylogenetic Tree
 
-## 🛠️ Engineering Highlights
+<div align="center">
+
+<p align="center">
+  <a href="images/sample1_clonality_tree.png">
+    <img src="images/sample1_clonality_tree.png" alt="Clonality Tree" width="300" height="500">
+  </a>
+</p>
+
+</div>
+
+
+A custom R script built on top of the ClonEvol library that produces a publication-ready phylogenetic tree visualising the evolutionary relationships between tumour subclones across one or more samples.
+
+Each numbered node in the tree represents a distinct subclonal population. Node colour encodes clonal identity (matching the population colour scheme used by ClonEvol), and branch width is scaled proportionally to the size of that subclonal population. Sample labels (e.g. S1, S2) below each node indicate which tumour samples harbour that clone, making multi-sample clonal dynamics immediately visible. Driver gene mutations are displayed along each branch — showing exactly which genes accumulated mutations during that step of tumour evolution. The trunk (grey) represents the founding clone shared across all samples, while diverging coloured branches represent subclonal expansions unique to individual samples or later timepoints.
+
+---
+
+
+## Engineering Highlights
 
 This project was built to demonstrate applied bioinformatics engineering skills in a production context:
 
@@ -292,7 +301,7 @@ This project was built to demonstrate applied bioinformatics engineering skills 
 
 ---
 
-## 📚 References
+## References
 
 - [PhyloWGS](https://github.com/morrislab/phylowgs) — Deshwar et al., *Genome Biology* (2015)
 - [ClonEvol](https://github.com/hdng/clonevol) — Nguyen et al., *Annals of Oncology* (2017)
@@ -300,7 +309,7 @@ This project was built to demonstrate applied bioinformatics engineering skills 
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the GNU General Public License v3.0 - see the LICENSE file for details.
 
