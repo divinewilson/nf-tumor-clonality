@@ -69,8 +69,11 @@ nf-tumor-clonality/
 
 The pipeline is composed of **9 sequential processes** organised across 5 modules:
 
+<div align="center">
+
 [![Alt text](images/nf_clonality.gif)](images/nf_clonality.gif)
 
+</div>
 ---
 
 ## Docker & Environment Design
