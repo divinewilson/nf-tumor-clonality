@@ -1,0 +1,1 @@
+{"vcf_types": {"S2": "pcawg_consensus", "S1": "pcawg_consensus"}, "vcf_files": {"S2": "sample1_2_reformated.vcf", "S1": "sample1_1_reformated.vcf"}, "cnv_files": {"S2": "sample1_2__cnvs.txt", "S1": "sample1_1__cnvs.txt"}, "samples": ["S1", "S2"]}
