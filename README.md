@@ -215,20 +215,33 @@ params {
 
 ---
 
-## 📊 Output Files
+## Output Files
 
-All results are written to `results/<sample_id>/`:
-
----
-
-
-## 📈 Interactive Visualisations
-
-Two interactive HTML plots are generated at the end of the pipeline via `plot.nf`, both built in Python using Plotly.
+All results are written to `results/<sample_id>/`
 
 ---
 
-### Genome-Wide VAF Scatter Plot (`python_lollipop_plot.py`)
+
+## Visualisations
+
+Three plots are generated at the end of the pipeline
+
+---
+
+<div align="center">
+
+[![Alt text](test_data/test_outfiles/sample1/sample1_clonality_tree.pdf)](test_data/test_outfiles/sample1/sample1_clonality_tree.pdf)
+
+</div>
+
+
+### Genome-Wide VAF Scatter Plot
+
+<div align="center">
+
+[![Alt text](test_data/test_outfiles/sample1/sample1__pops_VAFs_interactive.html)](test_data/test_outfiles/sample1/sample1__pops_VAFs_interactive.html)
+
+</div>
 
 A Manhattan-style view of Variant Allele Frequencies across the entire genome, placing every somatic mutation in its physical chromosomal context using the hg38 assembly.
 
@@ -240,7 +253,13 @@ Biologically, this plot supports rapid identification of whether specific driver
 
 ---
 
-### Aggregated Clonal Burden Bubble Plot (`python_bubble_plot.py`)
+### Aggregated Clonal Burden Bubble Plot
+
+<div align="center">
+
+[![Alt text](test_data/test_outfiles/sample1/sample1__pops_bubbleplot_interactive.html)](test_data/test_outfiles/sample1/sample1__pops_bubbleplot_interactive.html)
+
+</div>
 
 A high-level summary of the tumour's mutational landscape that aggregates individual variant calls to the gene level within each subclonal population, surfacing the genomic weight of specific drivers across the clonal hierarchy.
 
